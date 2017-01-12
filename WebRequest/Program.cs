@@ -111,7 +111,7 @@ namespace WebRequestSample
 
             //访问网页
             //HttpWebRequest是WebRequest的子类，实现了更多的方法和属性
-            string uri = "http://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&nc=1385084200455&video=1";// "http://cn.bing.com/";
+            string uri = "http://cn.bing.com/HPImageArchive.aspx?format=js&n=1";
             Uri url = new Uri(uri);
             HttpWebResponse res = null;
             StreamReader ReaderText =null;

@@ -52,6 +52,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="JsonFormatChangeList.txt" />
     <Content Include="wlflag.ico" />
   </ItemGroup>
   <ItemGroup>
