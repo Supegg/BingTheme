@@ -18,6 +18,10 @@ namespace WebRequestSample
     /// 例，下载bing的背景图片图片
     /// Bing主页使用了完整路径表示背景图片地址
     /// 
+    /// Update by Supegg Rao on 2019-5-1
+    /// 1.调整正则表达式适应新的数据结构
+    /// 2.变更json解析类至 NewtonSoft.Json
+    /// 
     /// Update by Supegg Rao on 2017-1-12
     /// 1.调整正则表达式适应动态的json数据规则
     /// 2.暴露Dynamic JSON的JsonXml字段，动态查找jpg结尾的对象
@@ -165,19 +169,20 @@ namespace WebRequestSample
             }
             ///////************end of 方法二************************************//////
 
-            #region use dynnamic json
-            DynamicJson json = DynamicJson.Parse(ResponseText);
-
+            #region use  json
+            //DynamicJson json = DynamicJson.Parse(ResponseText);
+            var json = (Newtonsoft.Json.Linq.JObject)Newtonsoft.Json.JsonConvert.DeserializeObject(ResponseText);
+            Console.WriteLine(json);
             //backgroundUrl = "http://cn.bing.com" + json.images[0].vid.image;
-            backgroundUrl = "http://cn.bing.com" + json.JsonXml.Descendants().Where(x => x.Value.EndsWith("jpg")).First().Value;
-           
-
+            //backgroundUrl = "http://cn.bing.com" + json.JsonXml.Descendants().Where(x => x.Value.EndsWith("jpg")).First().Value;
+            backgroundUrl = "http://cn.bing.com/" + json["images"][0]["url"].ToString();
+            
             Console.WriteLine(backgroundUrl);
 
             #endregion
 
-            bgPath = DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + DateTime.Now.Day + "_" + backgroundUrl.Substring(backgroundUrl.LastIndexOf("/")+1); //文件名
-            bgPath = path + bgPath;//完整路径名
+            //bgPath = DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + DateTime.Now.Day + "_" + backgroundUrl.Substring(backgroundUrl.LastIndexOf("/")+1); //文件名
+            bgPath = path + Regex.Match(json["images"][0]["url"].ToString(), @"(?<=id=).+?(?=\.jpg)").Value + ".jpg";//完整路径名
 
             //如果bing.txt不存在，则新建
             StreamReader sr =null;
