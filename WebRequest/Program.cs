@@ -18,6 +18,10 @@ namespace WebRequestSample
     /// 例，下载bing的背景图片图片
     /// Bing主页使用了完整路径表示背景图片地址
     /// 
+    /// Update by Supegg Rao on 2019-6-17
+    /// 1.修复本地文件名没有时间标记的问题
+    /// 2.变更json解析类至 NewtonSoft.Json
+    /// 
     /// Update by Supegg Rao on 2019-5-1
     /// 1.调整正则表达式适应新的数据结构
     /// 2.变更json解析类至 NewtonSoft.Json
@@ -182,7 +186,7 @@ namespace WebRequestSample
             #endregion
 
             //bgPath = DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + DateTime.Now.Day + "_" + backgroundUrl.Substring(backgroundUrl.LastIndexOf("/")+1); //文件名
-            bgPath = path + Regex.Match(json["images"][0]["url"].ToString(), @"(?<=id=).+?(?=\.jpg)").Value + ".jpg";//完整路径名
+            bgPath = path + DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + DateTime.Now.Day + "_" + Regex.Match(json["images"][0]["url"].ToString(), @"(?<=id=).+?(?=\.jpg)").Value + ".jpg";//完整路径名
 
             //如果bing.txt不存在，则新建
             StreamReader sr =null;
