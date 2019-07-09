@@ -9,6 +9,7 @@ using System.Drawing;
 using System.Text.RegularExpressions;
 using Codeplex.Data;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace WebRequestSample
 {
@@ -17,6 +18,12 @@ namespace WebRequestSample
     /// 分析html，获取相关资源地址
     /// 例，下载bing的背景图片图片
     /// Bing主页使用了完整路径表示背景图片地址
+    /// 
+    /// Update by Supegg Rao on 2019-6-24
+    /// 1.增加玉皇顶Ending
+    /// 
+    /// Update by Supegg Rao on 2019-6-21
+    /// 1.工程类型变更为Windows Application，隐藏dos窗口
     /// 
     /// Update by Supegg Rao on 2019-6-17
     /// 1.修复本地文件名没有时间标记的问题
@@ -91,6 +98,9 @@ namespace WebRequestSample
     /// </summary>
     class Program
     {
+        static Timer Timer = new Timer(rand, null, 5000, 5000);
+        static int cnt = 100;
+
         static void Main(string[] args)
         {
             //Environment.CurrentDirectory + "\\" + "BingTheme.exe"); 启动环境的路径
@@ -107,7 +117,31 @@ namespace WebRequestSample
             //添加到启动项
             SetAutoRun("BingTheme", fileName);
 
+            while(cnt>0)
+            {
+                Thread.Sleep(1000);
+                Console.WriteLine($"Count down {cnt--}.......");
+            }
+
+            Timer.Change(0, Timeout.Infinite);
+            openPicture("MountTai.jpg");
+            Thread.Sleep(1000);
         }
+
+        private static void rand(object state)
+        {
+            string fileName = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
+            string path = fileName.Substring(0, fileName.LastIndexOf('\\') + 1) + "Pics\\";
+            List<string> pics = new List<string>();
+
+            foreach(var file in Directory.GetFiles(path, "*.jpg"))
+            {
+                pics.Add(file);
+            }
+
+            openPicture(pics[(new Random()).Next(0, pics.Count)]);
+        }
+
 
         static void GetBackground(string path)
         {
