@@ -1180,3 +1180,4 @@
 2019/7/9 8:05:09:http://cn.bing.com//th?id=OHR.JaguarPantanal_ZH-CN6062516404_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp
 2019/7/15 15:32:32:http://cn.bing.com//th?id=OHR.Ushitukiiwa_ZH-CN5710944706_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp
 2019/8/6 16:28:41:http://cn.bing.com//th?id=OHR.WhiteStorksNest_ZH-CN9809680903_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp
+2021/9/28 17:33:50:http://cn.bing.com//th?id=OHR.SnowFuji_EN-US1257216719_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp
